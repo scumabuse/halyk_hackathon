@@ -1,0 +1,7 @@
+# Поля верхнего уровня submission.json
+team: "essence"
+contact_email: "scumabuse@gmail.com"
+model: "deterministic (no LLM)"
+
+# Пороги сопоставления
+fuzzy_min_score: 88        # минимальное совпадение имени контрагента с досье KYC
