@@ -44,33 +44,53 @@
 
 ## Быстрый старт
 
-Требуется Python 3.12 или новее. Внешние сервисы, ключи доступа и переменные окружения не используются.
+Требуется Python 3.12 или новее. Внешние сервисы, ключи доступа и переменные окружения не используются. Набор данных в репозиторий не включён и распаковывается локально.
+
+Windows, PowerShell:
+
+```powershell
+git clone https://github.com/scumabuse/halyk_hackathon.git
+cd halyk_hackathon
+
+python -m venv .venv
+.venv\Scripts\pip install -r requirements.txt
+
+# Распакуйте архив набора данных так, чтобы получился каталог
+# data\agentic-bank-public\ внутри репозитория
+
+.venv\Scripts\python main.py --data data/agentic-bank-public --out submission.json
+```
+
+Linux и macOS:
 
 ```bash
 git clone https://github.com/scumabuse/halyk_hackathon.git
 cd halyk_hackathon
 
-python -m venv .venv
-.venv/Scripts/pip install -r requirements.txt      # Linux/macOS: .venv/bin/pip
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
 
-# Распакуйте архив набора данных в каталог data/
-# Ожидаемый путь: data/agentic-bank-public/
+# Распакуйте архив набора данных в data/agentic-bank-public/
 
-python main.py --data data/agentic-bank-public --out submission.json
+.venv/bin/python main.py --data data/agentic-bank-public --out submission.json
 ```
+
+Интерпретатор вызывается по явному пути внутри виртуального окружения. Если вместо этого выполнить `python main.py`, будет запущен интерпретатор системы, в котором зависимости не установлены, и запуск завершится ошибкой `ModuleNotFoundError`. Альтернатива — предварительно активировать окружение командой `.venv\Scripts\Activate.ps1` (PowerShell) либо `source .venv/bin/activate` (Linux, macOS), после чего допустимо использовать короткую форму `python main.py`.
 
 Проверка результата по ключу ответов (используется только при разработке; в приватном наборе ключ отсутствует, и конвейер от него не зависит):
 
-```bash
-python evaluate.py --submission submission.json --data data/agentic-bank-public
+```powershell
+.venv\Scripts\python evaluate.py --submission submission.json --data data/agentic-bank-public
 ```
 
 Запуск тестов:
 
-```bash
-pip install -r requirements-dev.txt
-python -m pytest tests -q
+```powershell
+.venv\Scripts\pip install -r requirements-dev.txt
+.venv\Scripts\python -m pytest tests -q
 ```
+
+Совместимость проверена на CPython 3.12 и 3.14 в изолированных окружениях: 40 тестов проходят, результат на публичном наборе воспроизводится побитово.
 
 ### Зависимости
 
